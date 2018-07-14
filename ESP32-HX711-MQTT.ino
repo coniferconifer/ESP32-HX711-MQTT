@@ -1,4 +1,5 @@
-/* EDP32-HX711 WiFi/MQTT enhanced prompting weight scale using legacy weight scale
+/* ESP32-HX711 WiFi/MQTT enhanced weight scale using legacy weight scale
+ *  
    Once you use this scale, the scale will wake up  TIME_TO_SLEEP sec later to prompt you to
    use it again. (ex. 86500 sec (1day ) , not tested yet )
    I'm running Node-RED on raspberry pi and node graph can out put weight values to
@@ -38,7 +39,7 @@ HX711 scale;
 //This value is obtained using the SparkFun_HX711_Calibration sketch or used #define CALIB in this sketch
 //#define calibration_factor -1050.02 // for 1kg load cell
 #define calibration_factor -31900 // for my legacy weight scale
-                                  // scale.get_units(10) --> -2041600 for 64kg , -2041600/64 --> -31900
+// scale.get_units(10) --> -2041600 for 64kg , -2041600/64 --> -31900
 /* https://github.com/bogde/HX711
    How to Calibrate Your Scale
 
@@ -58,8 +59,20 @@ PubSubClient client(serverArray[0], MQTTPORT, wifiClient);
 #define FAILSOUND 440//Hz A
 //https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP32/examples/DeepSleep/TimerWakeUp/TimerWakeUp.ino
 #define uS_TO_S_FACTOR 1000000  /* Conversion factor for micro seconds to seconds */
-#define TIME_TO_SLEEP 600/* ESP32 sleeps after measurement (in seconds) */
+#define TIME_TO_SLEEP 6000/* ESP32 sleeps after measurement (in seconds) */
 
+#define TIMEZONE 9 //in Japan
+#define NTP1 "time.google.com"
+#define NTP2 "ntp.nict.jp"
+#define NTP3 "ntp.jst.mfeed.ad.jp"
+void displayTime() {
+  struct tm timeInfo;
+  getLocalTime(&timeInfo);
+  Serial.printf("Date: %04d/%02d/%02d %02d:%02d:%02d , ",
+                timeInfo.tm_year + 1900, timeInfo.tm_mon + 1, timeInfo.tm_mday,
+                timeInfo.tm_hour, timeInfo.tm_min, timeInfo.tm_sec);
+
+}
 /* https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP32/examples/DeepSleep/ExternalWakeUp/ExternalWakeUp.ino
   Method to print the reason by which ESP32
   has been awaken from sleep
@@ -121,7 +134,7 @@ void setup() {
 
   Serial.println("Initializing the scale");
   scale.begin(GPIO_NUM_26, GPIO_NUM_25); // DOUT,SCK
-//#define CALIB
+  //#define CALIB
 #ifdef CALIB
   scale.set_scale();
   scale.tare();
@@ -204,6 +217,7 @@ void loop() {
       }
     }
   }
+  displayTime();
   WiFi.mode(WIFI_OFF);
 
   scale.power_down();// put the ADC in sleep mode
@@ -228,6 +242,8 @@ void loop() {
     Serial.println("Setup ESP32 to wakeup after " + String(TIME_TO_SLEEP) +
                    " seconds to promote re-scale again."); //Go to sleep now
   }
+
+
   Serial.println("Going to sleep now");
   tone(SPEAKER, SHUTDOWNSOUND); delay(500); noTone(SPEAKER); digitalWrite(SPEAKER, LOW);
   esp_deep_sleep_start();
@@ -249,7 +265,7 @@ int initWiFi() {
       if (WiFi.status() == WL_CONNECTED) {
         int rssi = WiFi.RSSI();
         Serial.printf("RSSI= %d\n", rssi);
-        //        configTime(TIMEZONE * 3600L, 0,  NTP1, NTP2, NTP3);
+        configTime(TIMEZONE * 3600L, 0,  NTP1, NTP2, NTP3);
         Serial.print("WiFi connected, IP address: "); Serial.println(WiFi.localIP());
         return (i);
       }
