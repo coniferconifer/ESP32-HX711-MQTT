@@ -8,6 +8,9 @@
   and "slack" node to inform to my mobile phone.
 ![Fig.3 Node-RED](https://github.com/coniferconifer/ESP32-HX711-MQTT/blob/master/node-RED.png)
 
+## remaining issues
+- sometimes WiFi reconnection fails after wake up from deep sleep
+  
 ## License: Apache License v2
 
 ## References
