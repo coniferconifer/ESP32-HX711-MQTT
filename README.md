@@ -2,11 +2,11 @@
 ![Fig.1 shematics by Fritzing](https://github.com/coniferconifer/ESP32-HX711-MQTT/blob/master/fritzing.png)
 ![Fig.2 TANITA weight scale reformed by ESP32-HX711-MTT](https://github.com/coniferconifer/ESP32-HX711-MQTT/blob/master/tanita.jpg)
 ### Legacy weight scale is reformed into WiFi connected scale by ESP32
-- Load cell and push button from the scale are re-used.
-- ESP32 send weight to MQTT server 
-- Node-RED on raspberry pi splits incoming MQTT to Thingsboard at port 1883
+- Load cells and push button of the scale are re-used.
+- ESP32 sends weight to MQTT server at port 2883. 
+- Node-RED on raspberry pi splits incoming MQTT at 2883 to Thingsboard at port 1883
   and "slack" node to inform to my mobile phone.
-
+![Fig.3 Node-RED](https://github.com/coniferconifer/ESP32-HX711-MQTT/blob/master/node-RED.png)
 
 ## License: Apache License v2
 
