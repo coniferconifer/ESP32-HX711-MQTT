@@ -1,6 +1,6 @@
 /* EDP32-HX711 WiFi/MQTT enhanced prompting weight scale using legacy weight scale
    Once you use this scale, the scale will wake up  TIME_TO_SLEEP sec later to prompt you to
-   use it again. (ex. 86500 sec (1day )
+   use it again. (ex. 86500 sec (1day ) , not tested yet )
    I'm running Node-RED on raspberry pi and node graph can out put weight values to
    slack for recording and prompting to use it regularly.
 
