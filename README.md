@@ -6,7 +6,8 @@
 - ESP32 sends weight to MQTT server at port 2883. 
 - Node-RED on raspberry pi splits incoming MQTT at 2883 to Thingsboard at port 1883
   and "slack" node to inform to my mobile phone.
-![Fig.3 Node-RED](https://github.com/coniferconifer/ESP32-HX711-MQTT/blob/master/node-RED.png)
+![Fig.3 slack](https://github.com/coniferconifer/ESP32-HX711-MQTT/blob/master/slack.png)
+![Fig.4 Node-RED](https://github.com/coniferconifer/ESP32-HX711-MQTT/blob/master/node-RED.png)
 
 ## remaining issues
 - sometimes WiFi reconnection fails after wake up from deep sleep
