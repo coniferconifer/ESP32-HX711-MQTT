@@ -27,7 +27,7 @@ char* ssidArray[] = { WIFI_SSID , WIFI_SSID1, WIFI_SSID2};
 char* passwordArray[] = {WIFI_PASS, WIFI_PASS1, WIFI_PASS2};
 char* tokenArray[] = { TOKEN , TOKEN1, TOKEN2};
 char* serverArray[] = {SERVER, SERVER1, SERVER2};
-#define MQTTRETRY 1
+
 #define DEVICE_TYPE "ESP32" // 
 String clientId = DEVICE_TYPE ; //uniq clientID will be generated from MAC
 char topic[] = "v1/devices/me/telemetry"; //for Thingsboard
@@ -38,6 +38,7 @@ HX711 scale;
 //This value is obtained using the SparkFun_HX711_Calibration sketch or used #define CALIB in this sketch
 //#define calibration_factor -1050.02 // for 1kg load cell
 #define calibration_factor -31900 // for my legacy weight scale
+                                  // scale.get_units(10) --> -2041600 for 64kg , -2041600/64 --> -31900
 /* https://github.com/bogde/HX711
    How to Calibrate Your Scale
 
@@ -120,8 +121,9 @@ void setup() {
 
   Serial.println("Initializing the scale");
   scale.begin(GPIO_NUM_26, GPIO_NUM_25); // DOUT,SCK
+//#define CALIB
 #ifdef CALIB
-  scale. set_scale();
+  scale.set_scale();
   scale.tare();
   Serial.println("Put known weight on ");
   delay(2500);
