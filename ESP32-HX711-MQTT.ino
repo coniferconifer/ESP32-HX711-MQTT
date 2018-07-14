@@ -240,7 +240,7 @@ void loop() {
   if (datacnt > 0) {
     esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
     Serial.println("Setup ESP32 to wakeup after " + String(TIME_TO_SLEEP) +
-                   " seconds to promote re-scale again."); //Go to sleep now
+                   " seconds to measure the weight again."); //Go to sleep now
   }
 
 
