@@ -1,7 +1,7 @@
 ## Weight scale IoT by ESP32
 ![Fig.1 shematics by Fritzing](https://github.com/coniferconifer/ESP32-HX711-MQTT/blob/master/fritzing.png)
 ![Fig.2 TANITA weight scale reformed by ESP32-HX711-MTT](https://github.com/coniferconifer/ESP32-HX711-MQTT/blob/master/tanita.jpg)
-### Legacy weight scale is reformed into WiFi connected scale by ESP32
+### Legacy weight scale is remodeled into WiFi connected scale by ESP32
 - Load cells and push button of the scale are re-used.
 - ESP32 sends weight to MQTT server at port 2883. 
 - Node-RED on raspberry pi splits incoming MQTT at 2883 to Thingsboard at port 1883
