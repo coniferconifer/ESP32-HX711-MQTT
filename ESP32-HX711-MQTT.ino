@@ -31,9 +31,9 @@ char* serverArray[] = {SERVER, SERVER1, SERVER2};
 
 #define DEVICE_TYPE "ESP32" // 
 String clientId = DEVICE_TYPE ; //uniq clientID will be generated from MAC
-char topic[] = "v1/devices/me/telemetry"; //for Thingsboard
+char topic[] = "v1/devices/me/telemetry"; //for topic by Thingsboard
 #define MQTTPORT 2883 //for MQTT server running on raspberry pi
-#define LED GPIO_NUM_2
+#define LED GPIO_NUM_2  //indicator for boot up and ready to measure
 #define SPEAKER GPIO_NUM_12
 HX711 scale;
 //This value is obtained using the SparkFun_HX711_Calibration sketch or used #define CALIB in this sketch
@@ -134,7 +134,7 @@ void setup() {
 
   Serial.println("Initializing the scale");
   scale.begin(GPIO_NUM_26, GPIO_NUM_25); // DOUT,SCK
-  //#define CALIB
+//#define CALIB
 #ifdef CALIB
   scale.set_scale();
   scale.tare();
@@ -154,16 +154,19 @@ void setup() {
   Serial.println("Readings:");
   //set wakeup key
   gpio_pullup_en(GPIO_NUM_0);    // use pullup on GPIO
-  gpio_pulldown_dis(GPIO_NUM_0); // not use pulldown on GPIO
+  gpio_pulldown_dis(GPIO_NUM_0); // do not use pulldown on GPIO
 
 }
 #define LOOPMAX 3
 #define REPORTTHRESH 10
 double w[LOOPMAX];
 
-
+// measure the weight LOOPMAX times after beep
+//if there are values greater than REPORTTHRESH kg , then connect to MQTT server and 
+// set wakeup timer 
+// else go to deep sleep.
 void loop() {
-  digitalWrite(2, HIGH);
+  digitalWrite(LED, HIGH);
   int i;
   for (i = 0; i < LOOPMAX ; i++) {
     // beep sound
@@ -175,7 +178,7 @@ void loop() {
     Serial.println(w[i], 1);
   }
   scale.power_down();// put the ADC in sleep mode
-  digitalWrite(2, LOW);
+  digitalWrite(LED, LOW);
   int datacnt = 0;
   for (i = 0; i < LOOPMAX; i++) {
     if ( w[i] > REPORTTHRESH ) datacnt++;
