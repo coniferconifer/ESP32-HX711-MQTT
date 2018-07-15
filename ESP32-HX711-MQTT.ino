@@ -59,7 +59,7 @@ PubSubClient client(serverArray[0], MQTTPORT, wifiClient);
 #define FAILSOUND 440//Hz A
 //https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP32/examples/DeepSleep/TimerWakeUp/TimerWakeUp.ino
 #define uS_TO_S_FACTOR 1000000  /* Conversion factor for micro seconds to seconds */
-#define TIME_TO_SLEEP 6000  /* ESP32 sleeps after measurement (in seconds) */
+#define TIME_TO_SLEEP 86500  /* ESP32 sleeps after measurement (in seconds) */
 
 #define TIMEZONE 9 //in Japan
 #define NTP1 "time.google.com"
