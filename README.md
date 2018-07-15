@@ -1,6 +1,7 @@
 ## Weight scale IoT by ESP32
 Fig.1 shematics by Fritzing
 ![Fig.1 shematics by Fritzing](https://github.com/coniferconifer/ESP32-HX711-MQTT/blob/master/fritzing.png)
+
 Fig.2 The weight scale remodeled by ESP32-HX711-MTT
 ![Fig.2 TANITA weight scale remodeled by ESP32-HX711-MTT](https://github.com/coniferconifer/ESP32-HX711-MQTT/blob/master/tanita.jpg)
 
@@ -12,6 +13,7 @@ Fig.2 The weight scale remodeled by ESP32-HX711-MTT
 
 Fig.3 slack
 ![Fig.3 slack](https://github.com/coniferconifer/ESP32-HX711-MQTT/blob/master/slack.png)
+
 Fig.4 Node-RED running on raspberry pi 
 ![Fig.4 Node-RED](https://github.com/coniferconifer/ESP32-HX711-MQTT/blob/master/node-RED.png)
 
