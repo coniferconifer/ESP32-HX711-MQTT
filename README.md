@@ -19,6 +19,7 @@
 
 - [AVIA Semiconductor HX711 data sheet]https://www.mouser.com/ds/2/813/hx711_english-1022875.pdf
 - [https://github.com/bogde/HX711] https://github.com/bogde/HX711
+- [HX711 library for ESP32]https://github.com/SensorsIot/Weight-Sensors/tree/master/HX711 
 - [#161 Measuring weight using an ESP32, a strain gauge, and a HX711]https://www.youtube.com/watch?v=iywsJB-T-mU
 - [#194 IKEA Saltviken Scale Hack: Create a 150kg Scale Connected to Google Firebase (ESP32, ESP8266)]https://www.youtube.com/watch?v=14YmiEycup4
 
