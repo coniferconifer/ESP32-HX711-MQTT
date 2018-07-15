@@ -59,7 +59,7 @@ PubSubClient client(serverArray[0], MQTTPORT, wifiClient);
 #define FAILSOUND 440//Hz A
 //https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP32/examples/DeepSleep/TimerWakeUp/TimerWakeUp.ino
 #define uS_TO_S_FACTOR 1000000  /* Conversion factor for micro seconds to seconds */
-#define TIME_TO_SLEEP 1800  /* ESP32 sleeps after measurement (in seconds) */
+#define TIME_TO_SLEEP 6000  /* ESP32 sleeps after measurement (in seconds) */
 
 #define TIMEZONE 9 //in Japan
 #define NTP1 "time.google.com"
@@ -68,7 +68,7 @@ PubSubClient client(serverArray[0], MQTTPORT, wifiClient);
 void displayTime() {
   struct tm timeInfo;
   getLocalTime(&timeInfo);
-  Serial.printf("Date: %04d/%02d/%02d %02d:%02d:%02d , ",
+  Serial.printf("Date: %04d/%02d/%02d %02d:%02d:%02d \n",
                 timeInfo.tm_year + 1900, timeInfo.tm_mon + 1, timeInfo.tm_mday,
                 timeInfo.tm_hour, timeInfo.tm_min, timeInfo.tm_sec);
 
@@ -242,7 +242,9 @@ void loop() {
   */
   if (datacnt > 0) {
     rtc_clk_cpu_freq_set(RTC_CPU_FREQ_240M); // to wake up at spcified time , restore CPU speed
-    esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
+    esp_sleep_enable_timer_wakeup((uint64_t)TIME_TO_SLEEP * (uint64_t)uS_TO_S_FACTOR);
+//    esp_sleep_enable_timer_wakeup(6000000000); //140 min 
+   
     Serial.println("Setup ESP32 to wakeup after " + String(TIME_TO_SLEEP) +
                    " seconds to measure the weight again."); //Go to sleep now
   }
